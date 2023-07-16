@@ -1,0 +1,7 @@
+user model
+user controllers
+-signup
+-login
+-forgetPassword(verfiy ,send verify, change password)
+-verifypassword
+user routes 
