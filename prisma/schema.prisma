@@ -21,3 +21,42 @@ passwordRestCode String?
 passwordRestExp DateTime?
 passwordRestVerified Boolean?
 }
+
+model Category{
+id Int @id @default(autoincrement())
+name String
+description String?
+icon  String?
+create_at DateTime?
+SubCategories SubCategory[]
+products Product[] @relation(name: "ProductCategoryRelation")
+
+}
+
+model SubCategory{
+  id Int @id @default(autoincrement())
+  name String 
+  description String?
+  icon String?
+  create_at DateTime?
+  categoryId Int
+  category Category @relation(fields: [categoryId],references: [id])
+  products Product[] @relation(name: "ProductSubCategoryRelation")
+
+
+}
+
+model Product{
+  id Int @id @default(autoincrement())
+  title String?
+  description String? 
+  quantity Int?
+  sold Int?
+  price Int?
+  categoryId Int
+  category Category @relation(name: "ProductCategoryRelation", fields: [categoryId] ,references: [id])
+  subCategory SubCategory @relation(name: "ProductSubCategoryRelation", fields: [subCategoryId] ,references: [id])
+  subCategoryId Int
+  image String?
+  brand String?
+}
