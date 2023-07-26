@@ -30,7 +30,7 @@ icon  String?
 create_at DateTime?
 SubCategories SubCategory[]
 products Product[] @relation(name: "ProductCategoryRelation")
-
+brand Brand[] @relation(name: "BrandCategoryRelation")
 }
 
 model SubCategory{
@@ -42,21 +42,35 @@ model SubCategory{
   categoryId Int
   category Category @relation(fields: [categoryId],references: [id])
   products Product[] @relation(name: "ProductSubCategoryRelation")
+  brand Brand[]  @relation(name: "BrandSubCategoryRelation")
 
+}
 
+model Brand {
+  id Int @id @default(autoincrement())
+  name String?
+  image String?
+  create_at DateTime?
+  products Product[] @relation(name: "ProductBrandRelation")
+  categoryId Int
+  subCategoryId Int
+  category Category @relation(name: "BrandCategoryRelation", fields: [categoryId] ,references: [id])
+  subCategory SubCategory @relation(name: "BrandSubCategoryRelation", fields: [subCategoryId] ,references: [id])
 }
 
 model Product{
   id Int @id @default(autoincrement())
+  categoryId Int
+  category Category @relation(name: "ProductCategoryRelation", fields: [categoryId] ,references: [id])
+  subCategory SubCategory @relation(name: "ProductSubCategoryRelation", fields: [subCategoryId] ,references: [id])
+  subCategoryId Int
+  brandId Int
+  brand Brand @relation(name: "ProductBrandRelation", fields: [brandId] ,references: [id])
   title String?
   description String? 
   quantity Int?
   sold Int?
   price Int?
-  categoryId Int
-  category Category @relation(name: "ProductCategoryRelation", fields: [categoryId] ,references: [id])
-  subCategory SubCategory @relation(name: "ProductSubCategoryRelation", fields: [subCategoryId] ,references: [id])
-  subCategoryId Int
   image String?
-  brand String?
+  create_at DateTime?
 }

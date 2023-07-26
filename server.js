@@ -5,6 +5,8 @@ const userRouter = require("./routes/userRoutes");
 const authRouter = require("./routes/authRoutes");
 const catgoryRoute = require("./routes/categoryRoutes");
 const SubCatgoryRoute = require("./routes/subCategoryRoutes");
+const productRoute = require("./routes/productRoutes");
+const brandRoute = require("./routes/brandRoutes");
 
 const app = express();
 
@@ -14,6 +16,8 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/categories", catgoryRoute);
 app.use("/api/v1/Subcategories", SubCatgoryRoute);
+app.use("/api/v1/products", productRoute);
+app.use("/api/v1/brands", brandRoute);
 
 app.all("*", (req, res, next) => {
   next(new apiError(`can't find this route :${req.originalUrl}`, 400));
